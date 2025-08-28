@@ -1,6 +1,6 @@
-import * as Parser from 'tree-sitter';
-import * as Cpp from 'tree-sitter-cpp';
-import * as C from 'tree-sitter-c';
+import Parser = require('tree-sitter');
+import Cpp = require('tree-sitter-cpp');
+import C = require('tree-sitter-c');
 import * as vscode from 'vscode';
 
 export interface Symbol {
