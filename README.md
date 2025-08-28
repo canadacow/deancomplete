@@ -1,160 +1,69 @@
-# DeanComplete - Advanced C/C++ Code Browsing Extension
+# DeanComplete — Code assist for real this time.
 
-A powerful VS Code extension for intelligent C/C++ code analysis, navigation, and AI-assisted development.
+A VS Code extension that parses C/C++ files with tree-sitter and provides basic symbol navigation and simple context views. This is an early prototype focused on practicality and fast iteration.
 
-## Features
+## What it does today
 
-### 🚀 Fast C/C++ Parsing
-- **Tree-sitter based parsing** for lightning-fast symbol extraction
-- **Real-time analysis** with incremental updates
-- **Proper scope maintenance** with hierarchical symbol tracking
-- **Header file resolution** to prevent lost includes and duplicate definitions
+- **Parse C/C++ with tree-sitter** and extract common symbols:
+  - functions, variables, classes, structs, namespaces, enums, typedefs
+- **Index per file** and keep a simple name index for quick lookups
+- **Scan workspace on activation** for `*.{c,cpp,h,hpp,cc,cxx}` and re-analyze on file change/create/delete
+- **Status bar indicator** while scanning
+- **Commands**:
+  - `DeanComplete: Analyze Current File` — Re-parse the active file
+  - `DeanComplete: Show Symbol Information` — Open a webview with symbol details and a small heuristic “analysis”
+  - `DeanComplete: Find All References` — Invokes VS Code’s reference UI from the current cursor position (results depend on editors/providers)
+  - `DeanComplete: Show Scope Tree` — Display a simple, read-only scope tree in a webview
 
-### 🧠 AI-Powered Code Assistance
-- **Context-aware symbol analysis** with intelligent suggestions
-- **Code quality insights** with complexity metrics and best practices
-- **Refactoring recommendations** based on modern C++ patterns
-- **Usage pattern analysis** to understand how symbols are used
+## What it is not (yet)
 
-### 🔍 Advanced Code Navigation
-- **Symbol information panels** with detailed context
-- **Scope tree visualization** showing hierarchical relationships
-- **Reference finding** across the entire workspace
-- **Dependency analysis** with circular dependency detection
+- Not a full C/C++ language server and not a replacement for clangd
+- No semantic understanding of templates, overload resolution, or macros
+- No build-system awareness (no compile_commands.json integration)
+- No real header/include resolution across projects
+- Reference results are best-effort and not guaranteed to be complete
+- The “AI” helper is rule-based heuristics; no remote model is used
 
-### 📊 Code Quality Analysis
-- **Cyclomatic complexity** calculation
-- **Code metrics** (lines of code, comment ratio, etc.)
-- **Issue detection** for common C++ anti-patterns
-- **Unused symbol identification**
+## Install and run
 
-## Commands
-
-### Core Commands
-- **`DeanComplete: Analyze Current File`** - Parse and analyze the current C/C++ file
-- **`DeanComplete: Show Symbol Information`** - Display detailed information about the symbol at cursor
-- **`DeanComplete: Find All References`** - Find all usages of the current symbol
-- **`DeanComplete: Show Scope Tree`** - Visualize the scope hierarchy for the current file
-
-### Context Menu
-Right-click in a C/C++ file to access:
-- Show Symbol Information
-- Find All References
-
-## Architecture
-
-### Core Components
-
-1. **CppParser** - Fast tree-sitter based C/C++ parsing
-2. **SymbolDatabase** - Efficient symbol storage and indexing
-3. **ScopeManager** - Hierarchical scope tracking and management
-4. **AIAssistant** - Context-aware code analysis and suggestions
-5. **CodeAnalyzer** - Code quality metrics and issue detection
-
-### Key Features
-
-#### Fast Parsing
-- Uses tree-sitter for efficient syntax tree parsing
-- Supports both C and C++ with appropriate grammar selection
-- Incremental parsing for real-time updates
-- Symbol caching for performance
-
-#### Scope Management
-- Maintains proper scope hierarchies (namespaces, classes, functions)
-- Tracks symbol visibility and accessibility
-- Handles nested scopes correctly
-- Prevents scope pollution issues
-
-#### AI Integration
-- Context-aware symbol analysis
-- Code quality recommendations
-- Modern C++ best practices suggestions
-- Refactoring guidance
-
-## Installation
-
-1. Clone this repository
-2. Install dependencies: `npm install`
-3. Compile the extension: `npm run compile`
-4. Press F5 in VS Code to run the extension in debug mode
+1. Clone the repo
+2. Install deps: `npm install`
+3. Build: `npm run compile`
+4. Press F5 in VS Code to launch the extension host
 
 ## Development
 
-### Building
 ```bash
-npm run compile        # Build the extension
-npm run watch          # Watch for changes and rebuild
-npm run package        # Create VSIX package
+npm run compile        # Build once
+npm run watch          # Rebuild on change
+npm run package        # Production bundle
+
+npm run lint           # ESLint
+npm run test           # VS Code test runner
 ```
 
-### Testing
-```bash
-npm run test           # Run tests
-npm run lint           # Run linter
-```
+## Try it quickly
 
-## Sample Usage
+1. Open `sample.cpp`
+2. Run `DeanComplete: Analyze Current File`
+3. Place the cursor on a symbol and run `DeanComplete: Show Symbol Information`
+4. Run `DeanComplete: Show Scope Tree` to see a hierarchical view
 
-The extension includes a sample C++ file (`sample.cpp`) that demonstrates:
+## Project structure (high level)
 
-- **Namespaces** (`math`, `utils`)
-- **Classes** (`Calculator`, `Logger`, `Application`)
-- **Templates** (`Logger<T>`)
-- **Smart pointers** (`std::unique_ptr`)
-- **Exception handling**
-- **Static members**
-- **Modern C++ features**
+- `src/parser/CppParser.ts` — tree-sitter integration and symbol extraction
+- `src/database/SymbolDatabase.ts` — in-memory symbol and name index
+- `src/scope/ScopeManager.ts` — builds a simple scope tree for display
+- `src/ai/AIAssistant.ts` — lightweight, heuristic context text for the webview
+- `src/analysis/CodeAnalyzer.ts` — basic metrics helpers (not surfaced in UI yet)
+- `src/extension.ts` — command registration, workspace scanning, webviews
 
-### Testing the Extension
+## Roadmap (near-term)
 
-1. Open `sample.cpp` in VS Code
-2. Right-click on any symbol (e.g., `Calculator`, `add`, `main`)
-3. Select "DeanComplete: Show Symbol Information"
-4. Explore the scope tree and symbol relationships
-
-## Configuration
-
-The extension automatically activates for C/C++ files and provides:
-- Status bar indicator showing analysis status
-- File watchers for real-time updates
-- Context menu integration
-- Command palette integration
-
-## Roadmap
-
-### Planned Features
-- [ ] **Header file dependency graph**
-- [ ] **Advanced refactoring tools**
-- [ ] **Performance profiling integration**
-- [ ] **Custom rule engine**
-- [ ] **Team collaboration features**
-- [ ] **Integration with external tools** (clang-tidy, cppcheck)
-
-### Performance Optimizations
-- [ ] **Incremental parsing improvements**
-- [ ] **Symbol database optimization**
-- [ ] **Memory usage optimization**
-- [ ] **Parallel processing for large workspaces**
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+- Improve reference finding and cross-file symbol linkage
+- Surface basic code metrics in the UI
+- Better header/include handling and simple dependency graph view
 
 ## License
 
-MIT License - see LICENSE file for details
-
-## Support
-
-For issues, feature requests, or questions:
-- Create an issue on GitHub
-- Check the documentation
-- Review the sample code
-
----
-
-**DeanComplete** - Making C/C++ development faster, smarter, and more enjoyable! 🚀
+MIT — see `LICENSE`.
