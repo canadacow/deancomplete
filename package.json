@@ -18,37 +18,17 @@
   "contributes": {
     "commands": [
       {
-        "command": "deancomplete.analyzeFile",
-        "title": "DeanComplete: Analyze Current File",
-        "category": "DeanComplete"
-      },
-      {
-        "command": "deancomplete.showSymbolInfo",
-        "title": "DeanComplete: Show Symbol Information",
-        "category": "DeanComplete"
-      },
-      {
-        "command": "deancomplete.findReferences",
-        "title": "DeanComplete: Find All References",
-        "category": "DeanComplete"
-      },
-      {
-        "command": "deancomplete.showScopeTree",
-        "title": "DeanComplete: Show Scope Tree",
+        "command": "deancomplete.previewDefinitionTarget",
+        "title": "DeanComplete: Go to Definition (Preview)",
         "category": "DeanComplete"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "deancomplete.showSymbolInfo",
+          "command": "deancomplete.previewDefinitionTarget",
           "when": "editorLangId == cpp || editorLangId == c",
-          "group": "navigation"
-        },
-        {
-          "command": "deancomplete.findReferences",
-          "when": "editorLangId == cpp || editorLangId == c",
-          "group": "navigation"
+          "group": "navigation@9"
         }
       ]
     }
@@ -65,23 +45,20 @@
     "test": "vscode-test"
   },
   "dependencies": {
-    "tree-sitter": "^0.20.6",
-    "tree-sitter-cpp": "^0.20.0",
-    "tree-sitter-c": "^0.20.0",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
+    "@types/vscode": "^1.103.0",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
-    "eslint": "^9.32.0",
-    "typescript": "^5.9.2",
-    "ts-loader": "^9.5.2",
-    "webpack": "^5.101.0",
-    "webpack-cli": "^6.0.1",
     "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.32.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1"
   }
 }

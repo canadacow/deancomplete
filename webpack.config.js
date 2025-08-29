@@ -20,11 +20,7 @@ const extensionConfig = {
     libraryTarget: 'commonjs2'
   },
   externals: {
-    vscode: 'commonjs vscode',
-    // Exclude native tree-sitter bindings from bundling (resolved at runtime)
-    'tree-sitter': 'commonjs tree-sitter',
-    'tree-sitter-cpp': 'commonjs tree-sitter-cpp',
-    'tree-sitter-c': 'commonjs tree-sitter-c'
+    vscode: 'commonjs vscode'
   },
   resolve: {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
