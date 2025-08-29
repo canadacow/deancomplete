@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         const panel = vscode.window.createWebviewPanel(
             'definitionPreview',
-            'Go to Definition (Preview)',
+            'Go to Definition',
             vscode.ViewColumn.Beside,
             { enableFindWidget: true }
         );

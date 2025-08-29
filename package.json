@@ -19,7 +19,7 @@
     "commands": [
       {
         "command": "deancomplete.previewDefinitionTarget",
-        "title": "DeanComplete: Go to Definition (Preview)",
+        "title": "DeanComplete: Go to Definition",
         "category": "DeanComplete"
       }
     ],
@@ -28,7 +28,7 @@
         {
           "command": "deancomplete.previewDefinitionTarget",
           "when": "editorLangId == cpp || editorLangId == c",
-          "group": "navigation@9"
+          "group": "navigation@0"
         }
       ]
     }
