@@ -1,0 +1,10 @@
+{
+  "name": "deancomplete-indexer",
+  "version-string": "0.1.0",
+  "builtin-baseline": "5300a2a461a53b76405db4fcbe6aeb0eea43935d",
+  "dependencies": [
+    { "name": "llvm", "default-features": true, "features": ["tools"] },
+    { "name": "clang" }
+  ]
+}
+

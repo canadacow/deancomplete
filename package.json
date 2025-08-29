@@ -18,19 +18,45 @@
   "contributes": {
     "commands": [
       {
-        "command": "deancomplete.previewDefinitionTarget",
+        "command": "deancomplete.goToDefinition",
         "title": "DeanComplete: Go to Definition",
+        "category": "DeanComplete"
+      },
+      {
+        "command": "deancomplete.buildIndex",
+        "title": "DeanComplete: Build Definition Index",
         "category": "DeanComplete"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "deancomplete.previewDefinitionTarget",
+          "command": "deancomplete.goToDefinition",
           "when": "editorLangId == cpp || editorLangId == c",
           "group": "navigation@0"
         }
       ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "DeanComplete",
+      "properties": {
+        "deancomplete.indexer.path": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the external LibTooling definition indexer executable."
+        },
+        "deancomplete.index.file": {
+          "type": "string",
+          "default": ".deancomplete/index.jsonl",
+          "description": "Workspace-relative path to the definitions index file (JSON Lines)."
+        },
+        "deancomplete.compileCommandsDir": {
+          "type": "string",
+          "default": "",
+          "description": "Directory containing compile_commands.json. If empty, the workspace root is used."
+        }
+      }
     }
   },
   "scripts": {
